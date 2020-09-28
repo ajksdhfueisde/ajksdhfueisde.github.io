@@ -1,0 +1,25 @@
+.cell-empty {
+  background-color: #f7dbdb;
+}
+
+.close-btn {
+  display: none;
+}
+
+.cell-edit {
+  background-color: #dbf7db;
+}
+
+.cell-edit:hover .close-btn {
+  display: inline-block;
+}
+
+.cell-normal:hover .close-btn {
+  display: inline-block;
+}
+
+.ant-table-cell-ellipsis span {
+  min-width: 100%;
+  display: block;
+}
+
