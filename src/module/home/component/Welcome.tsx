@@ -6,19 +6,18 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {RootState} from "type/state";
 import {actions} from "../index";
-
+import LanguageSelectModal from "./LanguageSelectModal";
 import "./welcome.css";
 
 interface Props {
-    languageList: any[];
     mergeLanguageList: any[];
     columns: string[];
     hasImported: boolean;
-    importJSON: (file?: File) => void;
+    openLanguageModal: () => void;
     exportJSON: (columnName?: string) => void;
 }
 
-const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, importJSON, exportJSON}) => {
+const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, openLanguageModal, exportJSON}) => {
     const [editLanguageList, setEditLanguageList] = useState<any[]>([]);
     useEffect(() => {
         if (mergeLanguageList && mergeLanguageList.length > 0) {
@@ -146,7 +145,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, impo
                 <Col>
                     <Row gutter={20} style={{padding: "0 20px"}}>
                         <Col>
-                            <Upload
+                            {/* <Upload
                                 action=""
                                 accept=".json"
                                 showUploadList={false}
@@ -164,9 +163,9 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, impo
                                     }
                                     return false;
                                 }}
-                            >
-                                <Button type="primary">Import</Button>
-                            </Upload>
+                            > */}
+                            <Button type="primary" onClick={() => openLanguageModal()}>Import</Button>
+                            {/* </Upload> */}
                         </Col>
                         <Col>
                             <Button disabled={!hasImported} type="primary" danger onClick={() => exportJSON()}>
@@ -174,7 +173,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, impo
                             </Button>
                         </Col>
                         <Col>
-                            <Button disabled={!hasImported} type="ghost">
+                            <Button disabled={!hasImported} type="ghost" onClick={() => location.reload()}>
                                 Reset
                             </Button>
                         </Col>
@@ -191,22 +190,22 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, impo
                     return {...item, key: item.title};
                 })}
             />
+            <LanguageSelectModal />
         </div>
     );
 };
 
 const mapStatsToProps = (state: RootState) => {
-    const {mergeLanguageList, languageList, columns} = state.app.home;
+    const {mergeLanguageList, columns} = state.app.home;
     const hasImported = !!mergeLanguageList.length;
     return {
         mergeLanguageList,
-        languageList,
         columns,
         hasImported,
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    importJSON: (file?: File) => dispatch(actions.importJSON(file)),
+    openLanguageModal: () => dispatch(actions.changeModalVisible(true)),
     exportJSON: (columnName?: string) => dispatch(actions.exportJSON(columnName)),
 });
 

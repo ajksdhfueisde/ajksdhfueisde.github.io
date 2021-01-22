@@ -5,17 +5,18 @@ import {Location} from "history";
 import {ProductAJAXWebService} from "service/ProductAJAXWebService";
 import {LanguageCode, GoogleTranslateResponse} from "./type";
 import {message} from "antd";
+import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, LanguageType} from "utils/constant";
 
 export interface HomeState {
-    languageList: any[];
     mergeLanguageList: any[];
     columns: string[];
+    selectModalVisible: boolean;
 }
 
 const homeInitState: HomeState = {
-    languageList: [],
     mergeLanguageList: [],
     columns: [],
+    selectModalVisible: false,
 };
 
 function abstractKeys(obj: Object) {
@@ -119,10 +120,7 @@ class HomeModule extends Module<RootState, "home"> {
         if (!file) {
             return;
         }
-        // yield* this.translate("translate", "zh");
-        // eslint-disable-next-line no-console
-        // console.log(file, "file");
-        let {languageList, mergeLanguageList, columns} = this.state;
+        let {mergeLanguageList, columns} = this.state;
         const name = colName || file.name.replace(".json", "");
         if (columns.includes(name)) {
             message.error("Don't import json with same name");
@@ -134,7 +132,6 @@ class HomeModule extends Module<RootState, "home"> {
             try {
                 const jsonStr = (result.target?.result || "{}") as string;
                 const obj = JSON.parse(jsonStr);
-                languageList = languageList.concat([{title: name, value: obj}]);
                 const flatObj = abstractKeys(obj);
                 flatObj.forEach(item => {
                     let filterItem = mergeLanguageList.filter(lang => lang.title === item.key)[0];
@@ -146,7 +143,7 @@ class HomeModule extends Module<RootState, "home"> {
                     }
                 });
                 mergeLanguageList.sort((a,b) => a.title > b.title ? 1 : -1);
-                this.setState({languageList, mergeLanguageList: [...mergeLanguageList], columns: columns.concat([name])});
+                this.setState({mergeLanguageList: [...mergeLanguageList], columns: columns.concat([name])});
             } catch (err) {
                 // eslint-disable-next-line no-console
                 console.error(err);
@@ -154,6 +151,37 @@ class HomeModule extends Module<RootState, "home"> {
         };
 
         reader.readAsText(file);
+    }
+
+    async _importFile(url: string){
+        const temp = await import(url);
+        return temp;
+    }
+
+    *fetchJSON(url: string) {
+        const response = yield* call(() => this._importFile(url));
+        return response;
+        // return new Promise((resolve, reject) => {
+        //     fetch(url, {
+        //         credentials: 'omit'
+        //       })
+        //         .then(res => {
+        //             resolve(res.json());
+        //         })
+        //         .catch(err => {
+        //             reject(err);
+        //         });
+        // });
+    }
+
+    *changeModalVisible(isShow: boolean) {
+        this.setState({selectModalVisible: isShow});
+    }
+
+    *onLanguageSelectChange(keys: string[]) {
+        const response = yield* call(() => this.fetchJSON(CURRENT_LANGUAGE_KEY_URL[keys[0]]));
+        console.log(keys, response);
+        this.setState({columns: keys, selectModalVisible: false});
     }
 }
 
