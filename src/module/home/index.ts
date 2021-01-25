@@ -6,6 +6,10 @@ import {ProductAJAXWebService} from "service/ProductAJAXWebService";
 import {LanguageCode, GoogleTranslateResponse} from "./type";
 import {message} from "antd";
 
+import com from "module/asset/confirm";
+import en from "module/asset/en_US";
+import cn from "module/asset/zh_CN";
+
 export interface HomeState {
     languageList: any[];
     mergeLanguageList: any[];
@@ -97,7 +101,7 @@ class HomeModule extends Module<RootState, "home"> {
         console.log("translate", response);
     }
 
-    *exportJSON(colName: string = this.state.columns[0]): SagaIterator {
+    *exportJSON(colName: string = this.state.columns[1]): SagaIterator {
         const {mergeLanguageList, columns} = this.state;
         if (!columns.includes(colName)) {
             message.error("Export name should import already");
@@ -154,6 +158,49 @@ class HomeModule extends Module<RootState, "home"> {
         };
 
         reader.readAsText(file);
+    }
+
+    *dealJSON(langObj: any, name: string): SagaIterator {
+        let {languageList, mergeLanguageList, columns} = this.state;
+        try {
+            const obj = JSON.parse(JSON.stringify(langObj));
+            languageList = languageList.concat([{title: name, value: obj}]);
+            const flatObj = abstractKeys(obj);
+            flatObj.forEach(item => {
+                let filterItem = mergeLanguageList.filter(lang => lang.title === item.key)[0];
+                if (filterItem) {
+                    filterItem = {...filterItem, ...{[name]: item.value}};
+                    mergeLanguageList = mergeLanguageList.filter(lang => lang.title !== item.key).concat([filterItem]);
+                } else {
+                    mergeLanguageList.push({title: item.key, [name]: item.value});
+                }
+            });
+            // mergeLanguageList.sort((a,b) => a.title > b.title ? 1 : -1);
+            this.setState({languageList, mergeLanguageList: [...mergeLanguageList], columns: columns.concat([name])});
+        } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(err);
+        }
+    }
+
+    *deal(): SagaIterator {
+        yield* call(() => this.dealJSON(en, "en"));
+        yield* call(() => this.dealJSON(cn, "cn"));
+        console.log(this.state);
+        const {mergeLanguageList} = this.state;
+        const mergeLanguageListCopy = JSON.parse(JSON.stringify(mergeLanguageList)) as any[];
+        // let counter = [];
+        com.forEach(item => {
+            const current = mergeLanguageListCopy.filter(li => li.title.includes(item.key.trim()) && li.en === item.en).forEach(ss => {
+                ss.cn = item.cn;
+            });
+            // if(current.length > 0) {
+            //     current
+            // }
+            // counter += current.length;
+        });
+        // console.log(counter, "counter")
+        this.setState({mergeLanguageList: mergeLanguageListCopy});
     }
 }
 

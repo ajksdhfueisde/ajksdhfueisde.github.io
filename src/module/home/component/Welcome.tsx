@@ -146,7 +146,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, impo
                 <Col>
                     <Row gutter={20} style={{padding: "0 20px"}}>
                         <Col>
-                            <Upload
+                            {/* <Upload
                                 action=""
                                 accept=".json"
                                 showUploadList={false}
@@ -164,9 +164,9 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, impo
                                     }
                                     return false;
                                 }}
-                            >
-                                <Button type="primary">Import</Button>
-                            </Upload>
+                            > */}
+                                <Button type="primary" onClick={()=>importJSON()}>Import</Button>
+                            {/* </Upload> */}
                         </Col>
                         <Col>
                             <Button disabled={!hasImported} type="primary" danger onClick={() => exportJSON()}>
@@ -206,7 +206,7 @@ const mapStatsToProps = (state: RootState) => {
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    importJSON: (file?: File) => dispatch(actions.importJSON(file)),
+    importJSON: (file?: File) => dispatch(actions.deal()),
     exportJSON: (columnName?: string) => dispatch(actions.exportJSON(columnName)),
 });
 
