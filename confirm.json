@@ -1,0 +1,21 @@
+{
+    "Reports": {
+        "Data_analytics: Reports / Generate report": "数据分析：报告/生成报告",
+        "Data_report": "数据报告",
+        "Data_range": "数据范围",
+        "FifteenMinutes": "15分钟",
+        "Hour": "小时",
+        "Raw": "原始",
+        "Year": "年",
+        "Month": "月",
+        "Day": "天",
+        "Report_type": "报告类型",
+        "Include_aggregated_data_at_site_level_for_the_selected_time_window": "在选定的时间范围内，在站点上添加汇总数据。",
+        "Items_compare": "项目比较",
+        "Generate_report": "产生报告",
+        "set_schedule_task": "设置计划任务",
+        "Monthly": "每月",
+        "Semesterly": "每学期",
+        "Yearly": "每年"
+    },
+}
