@@ -12,12 +12,13 @@ import "./welcome.css";
 interface Props {
     mergeLanguageList: any[];
     columns: string[];
+    confirmObj: {[key: string]: Array<{key: string; value: string}>};
     hasImported: boolean;
     openLanguageModal: () => void;
     exportJSON: (columnName?: string) => void;
 }
 
-const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, openLanguageModal, exportJSON}) => {
+const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, confirmObj, openLanguageModal, exportJSON}) => {
     const [editLanguageList, setEditLanguageList] = useState<any[]>([]);
     useEffect(() => {
         if (mergeLanguageList && mergeLanguageList.length > 0) {
@@ -42,9 +43,11 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
             width: `${90 / (columns.length + 1)}vw`,
             ellipsis: true,
             render: (value, record) => {
+                const confirmValue = confirmObj[record.column] && confirmObj[record.column].find(obj => obj.key === record.title);
+                const isConfirmChanged = confirmValue && confirmValue !== value;
                 return (
                     <Tooltip placement="topLeft" title={value}>
-                        {value}
+                        <span style={{color: isConfirmChanged && "orange" || undefined}}>{value}</span>
                     </Tooltip>
                 );
             },
@@ -196,11 +199,12 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
 };
 
 const mapStatsToProps = (state: RootState) => {
-    const {mergeLanguageList, columns} = state.app.home;
+    const {mergeLanguageList, columns, confirmObj} = state.app.home;
     const hasImported = !!mergeLanguageList.length;
     return {
         mergeLanguageList,
         columns,
+        confirmObj,
         hasImported,
     };
 };
