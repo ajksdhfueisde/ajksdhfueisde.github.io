@@ -6,12 +6,12 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {RootState} from "type/state";
 import {actions} from "../index";
-import {CONFIRM_LANGUAGE_KEY_URL} from "utils/constant";
+import {CONFIRM_LANGUAGE_KEY_URL, LanguageType} from "utils/constant";
 
 interface Props {
     visible: boolean;
     inputSelectLanguages: string[];
-    onSelectChange: (keys: string[]) => void;
+    onSelectChange: (keys: LanguageType[]) => void;
     onCancel: () => void;
 }
 
@@ -23,7 +23,7 @@ const LanguageSelectModal: React.FC<Props> = ({visible, inputSelectLanguages, on
             onCancel();
             return;
         }
-        onSelectChange(selectLanguages);
+        onSelectChange(selectLanguages as LanguageType[]);
     };
     return (
         <Modal title="Select Language" visible={visible} onOk={handleOk} onCancel={onCancel}>
@@ -51,7 +51,7 @@ const mapStatsToProps = (state: RootState) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     onCancel: () => dispatch(actions.changeModalVisible(false)),
-    onSelectChange: (keys: string[]) => dispatch(actions.onLanguageSelectChange(keys)),
+    onSelectChange: (keys: LanguageType[]) => dispatch(actions.onLanguageSelectChange(keys)),
 });
 
 export default connect(mapStatsToProps, mapDispatchToProps)(LanguageSelectModal);

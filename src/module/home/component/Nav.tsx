@@ -72,7 +72,7 @@ const Nav: React.FunctionComponent<Props> = ({role}: Props) => {
 
 const mapStateToProps = (state: RootState): Props => {
     return {
-        role: state.app.user.currentUser.role,
+        role: "",
     };
 };
 

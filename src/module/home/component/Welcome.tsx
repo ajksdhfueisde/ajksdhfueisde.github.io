@@ -1,4 +1,4 @@
-import {Button, Col, Row, Table, Tooltip, Typography, Upload, Modal} from "antd";
+import {Button, Col, Row, Table, Tooltip, Typography, Checkbox, Modal} from "antd";
 import {CloseOutlined} from "@ant-design/icons";
 import {ColumnProps} from "antd/lib/table";
 import React, {useState, useEffect} from "react";
@@ -7,25 +7,55 @@ import {Dispatch} from "redux";
 import {RootState} from "type/state";
 import {actions} from "../index";
 import LanguageSelectModal from "./LanguageSelectModal";
+import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, IFlatLanguageListItem, IFlatLanguageList, LanguageType} from "utils/constant";
 import "./welcome.css";
+import {CheckboxChangeEvent} from "antd/lib/checkbox";
 
 interface Props {
-    mergeLanguageList: any[];
-    columns: string[];
-    confirmObj: {[key: string]: Array<{key: string; value: string}>};
+    mergeLanguageList: IFlatLanguageList;
+    columns: LanguageType[];
     hasImported: boolean;
     openLanguageModal: () => void;
-    exportJSON: (columnName?: string) => void;
+    exportJSON: (columnName?: LanguageType) => void;
 }
 
-const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, confirmObj, openLanguageModal, exportJSON}) => {
-    const [editLanguageList, setEditLanguageList] = useState<any[]>([]);
+interface DataProps {
+    title: string;
+    data: IFlatLanguageListItem;
+}
+
+const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, openLanguageModal, exportJSON}) => {
+    const [editLanguageList, setEditLanguageList] = useState<IFlatLanguageList>({});
+    const [isEmptyFilter, setIsEmptyFilter] = useState<boolean>(true);
+    const [isNewFilter, setIsNewFilter] = useState<boolean>(true);
+    const [isConfirmChangeFilter, setIsConfirmChangeFilter] = useState<boolean>(true);
     useEffect(() => {
-        if (mergeLanguageList && mergeLanguageList.length > 0) {
-            setEditLanguageList([...mergeLanguageList]);
+        if (mergeLanguageList && Object.keys(mergeLanguageList).length > 0) {
+            setEditLanguageList({...mergeLanguageList});
         }
     }, [mergeLanguageList]);
     // const editLanguageList = mergeLanguageList;
+    let dataSource: DataProps[] = Object.keys(editLanguageList).map(key => ({title: key, data: editLanguageList[key]}));
+    if (isEmptyFilter || isConfirmChangeFilter || isNewFilter) {
+        dataSource = dataSource.filter(item => {
+            const isEmpty = isEmptyFilter && columns.some(column => item.data[column]?.isEmpty);
+            const isConfirmChanged = isConfirmChangeFilter && columns.some(column => item.data[column]?.isConfirmChanged);
+            const isNew = isNewFilter && columns.some(column => !item.data[column]?.confirm);
+            return isEmpty || isConfirmChanged || isNew;
+        });
+    }
+    // if (isConfirmChangeFilter) {
+    //     dataSource = dataSource.filter(item => {
+    //         const isConfirmChanged = columns.some(column => item.data[column]?.isConfirmChanged);
+    //         return isConfirmChanged;
+    //     });
+    // }
+    // if (isNewFilter) {
+    //     dataSource = dataSource.filter(item => {
+    //         const isNew = columns.some(column => !item.data[column]?.confirm);
+    //         return isNew;
+    //     });
+    // }
     const tableColumns: Array<ColumnProps<any>> = [
         {
             title: "No",
@@ -42,32 +72,34 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, conf
             key: "title",
             width: `${90 / (columns.length + 1)}vw`,
             ellipsis: true,
-            render: (value, record) => {
-                const confirmValue = confirmObj[record.column] && confirmObj[record.column].find(obj => obj.key === record.title);
-                const isConfirmChanged = confirmValue && confirmValue !== value;
+            render: (value, record: DataProps) => {
                 return (
                     <Tooltip placement="topLeft" title={value}>
-                        <span style={{color: isConfirmChanged && "orange" || undefined}}>{value}</span>
+                        <span>{value}</span>
                     </Tooltip>
                 );
             },
         },
     ];
-    const setValue = (title: string, column: string, value = "") => {
-        setEditLanguageList(
-            editLanguageList.map(lang => {
-                if (lang.title === title) {
-                    const result = {...lang, [column]: value};
-                    return result;
-                }
-                return lang;
-            })
-        );
+    const setValue = (title: string, column: LanguageType, value = "") => {
+        setEditLanguageList({
+            ...editLanguageList,
+            [title]: {
+                ...editLanguageList[title],
+                [column]: {
+                    ...editLanguageList[title][column],
+                    value,
+                    isEdited: value !== editLanguageList[title][column]?.original,
+                    isEmpty: !value.trim(),
+                    isConfirmChanged: value !== editLanguageList[title][column]?.confirm,
+                },
+            },
+        });
     };
     columns.forEach(column => {
         tableColumns.push({
             title: () => {
-                const emptyNum = editLanguageList.map(lang => lang[column]).filter(item => !item).length;
+                const emptyNum = dataSource.map(lang => lang.data[column]?.value).filter(item => !item).length;
                 return (
                     <span>
                         {column}
@@ -79,10 +111,12 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, conf
             key: column,
             width: `${90 / (columns.length + 1)}vw`,
             ellipsis: true,
-            render: (value, record) => {
+            render: (_: any, record: DataProps) => {
+                const value = record.data[column]?.value;
                 const isEmpty = !(value && value.trim());
-                const originalValue = mergeLanguageList.filter(lang => lang.title === record.title)[0];
-                const isEdited = (originalValue && originalValue[column]) !== value;
+                const isConfirmChanged = record.data[column]?.isConfirmChanged;
+                const isNew = !record.data[column]?.confirm;
+                const isEdited = record.data[column]?.isEdited;
                 return (
                     <Tooltip placement="topLeft" title={value}>
                         {isEmpty && (
@@ -146,6 +180,25 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, conf
                     </Row>
                 </Col>
                 <Col>
+                    <Row justify="center" gutter={10} align="middle">
+                        <Col>
+                            <Checkbox checked={isEmptyFilter} onChange={(e: CheckboxChangeEvent) => setIsEmptyFilter(e.target.checked)}>
+                                Empty Filter
+                            </Checkbox>
+                        </Col>
+                        <Col>
+                            <Checkbox checked={isConfirmChangeFilter} onChange={(e: CheckboxChangeEvent) => setIsConfirmChangeFilter(e.target.checked)}>
+                                Confirm change Filter
+                            </Checkbox>
+                        </Col>
+                        <Col>
+                            <Checkbox checked={isNewFilter} onChange={(e: CheckboxChangeEvent) => setIsNewFilter(e.target.checked)}>
+                                New Key Filter
+                            </Checkbox>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col>
                     <Row gutter={20} style={{padding: "0 20px"}}>
                         <Col>
                             {/* <Upload
@@ -167,11 +220,15 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, conf
                                     return false;
                                 }}
                             > */}
-                            <Button type="primary" onClick={() => openLanguageModal()}>Import</Button>
+                            <Button type="primary" onClick={() => openLanguageModal()}>
+                                Import
+                            </Button>
                             {/* </Upload> */}
                         </Col>
                         <Col>
-                            <Button disabled={!hasImported} type="primary" danger onClick={() => exportJSON()}>
+                            <Button disabled={!hasImported} type="primary" danger onClick={() => {
+                                columns.forEach(column => exportJSON(column));
+                            }}>
                                 Export
                             </Button>
                         </Col>
@@ -183,34 +240,24 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, conf
                     </Row>
                 </Col>
             </Row>
-            <Table
-                size="small"
-                bordered
-                pagination={false}
-                rowKey={record => record.title}
-                columns={tableColumns}
-                dataSource={editLanguageList.map(item => {
-                    return {...item, key: item.title};
-                })}
-            />
+            <Table size="small" bordered pagination={false} rowKey={record => record.title} columns={tableColumns} dataSource={dataSource} />
             <LanguageSelectModal />
         </div>
     );
 };
 
 const mapStatsToProps = (state: RootState) => {
-    const {mergeLanguageList, columns, confirmObj} = state.app.home;
-    const hasImported = !!mergeLanguageList.length;
+    const {mergeLanguageList, columns} = state.app.home;
+    const hasImported = !!Object.keys(mergeLanguageList).length;
     return {
         mergeLanguageList,
         columns,
-        confirmObj,
         hasImported,
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     openLanguageModal: () => dispatch(actions.changeModalVisible(true)),
-    exportJSON: (columnName?: string) => dispatch(actions.exportJSON(columnName)),
+    exportJSON: (columnName?: LanguageType) => dispatch(actions.exportJSON(columnName)),
 });
 
 export default connect(mapStatsToProps, mapDispatchToProps)(Welcome);

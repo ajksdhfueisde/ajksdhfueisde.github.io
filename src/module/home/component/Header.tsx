@@ -4,13 +4,14 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {RootState} from "type/state";
 import {actions} from "../index";
+import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, IFlatLanguageListItem, IFlatLanguageList, LanguageType} from "utils/constant";
 
 import "./header.less";
 
 interface Props {
     hasImported: boolean;
     importJSON: (file?: File) => void;
-    exportJSON: (columnName?: string) => void;
+    exportJSON: (columnName?: LanguageType) => void;
 }
 
 const Header: React.FunctionComponent<Props> = ({hasImported, importJSON, exportJSON}) => {
@@ -56,14 +57,14 @@ const Header: React.FunctionComponent<Props> = ({hasImported, importJSON, export
 };
 
 const mapStatsToProps = (state: RootState) => {
-    const {mergeLanguageList, languageList, columns} = state.app.home;
-    const hasImported = !!mergeLanguageList.length;
+    const {mergeLanguageList, columns} = state.app.home;
+    const hasImported = !!Object.keys(mergeLanguageList).length;
     return {
         hasImported,
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     importJSON: (file?: File) => dispatch(actions.importJSON(file)),
-    exportJSON: (columnName?: string) => dispatch(actions.exportJSON(columnName)),
+    exportJSON: (columnName?: LanguageType) => dispatch(actions.exportJSON(columnName)),
 });
 export default connect(mapStatsToProps, mapDispatchToProps)(Header);

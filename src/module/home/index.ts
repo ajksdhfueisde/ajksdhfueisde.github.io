@@ -5,20 +5,20 @@ import {Location} from "history";
 import {ProductAJAXWebService} from "service/ProductAJAXWebService";
 import {LanguageCode, GoogleTranslateResponse} from "./type";
 import {message} from "antd";
-import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, LanguageType} from "utils/constant";
+import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, LanguageType, IFlatLanguageList} from "utils/constant";
 
 export interface HomeState {
-    mergeLanguageList: any[];
-    columns: string[];
+    mergeLanguageList: IFlatLanguageList;
+    columns: LanguageType[];
     selectModalVisible: boolean;
-    confirmObj: {[key: string]: Array<{key: string; value: string}>};
+    // confirmObj: {[key: string]: Array<{key: string; value: string}>};
 }
 
 const homeInitState: HomeState = {
-    mergeLanguageList: [],
+    mergeLanguageList: {},
     columns: [],
     selectModalVisible: false,
-    confirmObj: {},
+    // confirmObj: {},
 };
 
 function abstractKeys(obj: Object) {
@@ -100,13 +100,14 @@ class HomeModule extends Module<RootState, "home"> {
         console.log("translate", response);
     }
 
-    *exportJSON(colName: string = this.state.columns[0]): SagaIterator {
+    *exportJSON(colName: LanguageType = this.state.columns[0]): SagaIterator {
         const {mergeLanguageList, columns} = this.state;
         if (!columns.includes(colName)) {
             message.error("Export name should import already");
             return;
         }
-        const exportKeyObj = mergeLanguageList.map(lang => ({key: lang.title, value: lang[colName] || ""}));
+        const exportKeyObj = Object.keys(mergeLanguageList).map(key => ({key, value: mergeLanguageList[key][colName]?.value || ""}));
+        // const exportKeyObj = mergeLanguageList.map(lang => ({key: lang.title, value: lang[colName] || ""}));
         const downloadObj = restoreByKeys(exportKeyObj);
         if (downloadObj) {
             const formatData = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(downloadObj, undefined, 4));
@@ -118,21 +119,35 @@ class HomeModule extends Module<RootState, "home"> {
         }
     }
 
-    dealWithJSON(obj: any, name: string) {
+    dealWithJSON(obj: any, name: LanguageType) {
         let {mergeLanguageList, columns} = this.state;
-        mergeLanguageList = [...mergeLanguageList];
+        mergeLanguageList = JSON.parse(JSON.stringify(mergeLanguageList));
         const flatObj = abstractKeys(obj);
+        flatObj.sort((a, b) => (a.key > b.key ? 1 : -1));
         flatObj.forEach(item => {
-            let filterItem = mergeLanguageList.filter(lang => lang.title === item.key)[0];
-            if (filterItem) {
-                filterItem = {...filterItem, ...{[name]: item.value}};
-                mergeLanguageList = mergeLanguageList.filter(lang => lang.title !== item.key).concat([filterItem]);
+            if (mergeLanguageList[item.key]) {
+                mergeLanguageList[item.key][name] = {
+                    value: item.value,
+                    original: item.value,
+                    confirm: "",
+                    isEdited: false,
+                    isConfirmChanged: false,
+                    // isNewKey: false,
+                    isEmpty: !item.value,
+                };
             } else {
-                mergeLanguageList.push({title: item.key, [name]: item.value});
+                mergeLanguageList[item.key] = {[name]: {
+                    value: item.value,
+                    original: item.value,
+                    confirm: "",
+                    isEdited: false,
+                    isConfirmChanged: false,
+                    // isNewKey: false,
+                    isEmpty: !item.value,
+                }};
             }
         });
-        mergeLanguageList.sort((a, b) => (a.title > b.title ? 1 : -1));
-        return {mergeLanguageList: [...mergeLanguageList], columns: columns.concat([name])};
+        return {mergeLanguageList: {...mergeLanguageList}, columns: columns.concat([name])};
     }
 
     *importJSON(file?: File, colName?: string): SagaIterator {
@@ -141,7 +156,7 @@ class HomeModule extends Module<RootState, "home"> {
         }
         let {mergeLanguageList, columns} = this.state;
         const name = colName || file.name.replace(".json", "");
-        if (columns.includes(name)) {
+        if (columns.includes(name as LanguageType)) {
             message.error("Don't import json with same name");
             return;
         }
@@ -151,7 +166,7 @@ class HomeModule extends Module<RootState, "home"> {
             try {
                 const jsonStr = (result.target?.result || "{}") as string;
                 const obj = JSON.parse(jsonStr);
-                const {mergeLanguageList, columns} = this.dealWithJSON(obj, name);
+                const {mergeLanguageList, columns} = this.dealWithJSON(obj, name as LanguageType);
                 this.setState({mergeLanguageList, columns});
             } catch (err) {
                 // eslint-disable-next-line no-console
@@ -176,25 +191,35 @@ class HomeModule extends Module<RootState, "home"> {
         this.setState({selectModalVisible: isShow});
     }
 
-    *onLanguageSelectChange(keys: string[]) {
+    *onLanguageSelectChange(keys: LanguageType[]) {
         for (let i = 0; i < keys.length; i++) {
-            const {columns: _columns, confirmObj} = this.state;
+            const {columns: _columns} = this.state;
             if (_columns.includes(keys[i])) {
                 continue;
             }
             const response = yield* call(() => this.fetchJSON(CURRENT_LANGUAGE_KEY_URL[keys[i]]));
-            console.log(keys[i], response);
             const {mergeLanguageList, columns} = this.dealWithJSON(response, keys[i]);
-            if (confirmObj[keys[i]]) {
-                this.setState({mergeLanguageList, columns});
-            } else {
-                const confirmResponse = yield* call(() => this.fetchJSON(CONFIRM_LANGUAGE_KEY_URL[keys[i]]));
-                const flatConfirmObj = abstractKeys(confirmResponse);
-                const temp = {...confirmObj, [keys[i]]: flatConfirmObj};
-                console.log(keys[i], temp);
-                this.setState({mergeLanguageList, columns, confirmObj: temp});
-            }
+            // if (confirmObj[keys[i]]) {
+            //     this.setState({mergeLanguageList, columns});
+            // } else {
+            const confirmResponse = yield* call(() => this.fetchJSON(CONFIRM_LANGUAGE_KEY_URL[keys[i]]));
+            const flatConfirmObj = abstractKeys(confirmResponse);
+            flatConfirmObj.forEach(item => {
+                if (!mergeLanguageList[item.key]) {
+                    return;
+                }
+                const obj = mergeLanguageList[item.key][keys[i]];
+                if (obj) {
+                    obj.confirm = item.value;
+                    if (obj.confirm !== obj.original) {
+                        obj.isConfirmChanged = true;
+                    }
+                }
+            })
+            this.setState({mergeLanguageList, columns});
+            // }
         }
+        console.log(this.state.mergeLanguageList);
         this.setState({selectModalVisible: false});
     }
 }
