@@ -45,6 +45,7 @@
     "Footer_Menu_CyberSecurity": "网络安全",
     "Footer_Menu_OpenSourceSoftware": "开源软件",
     "Footer_Menu_ContactUs": "联系我们",
+    "Footer_Special_Terms_and_Conditions": "Special Terms and Conditions",
     "Empty_Dashboard": "仪表板是空的",
     "Empty_Dashboard_sub_title": "从列表中添加小部件并根据需要进行排列",
     "widgetDelete": "删除",
@@ -109,6 +110,7 @@
     "Select_standard_reference": "选择标准参考",
     "Select_asset_type": "选择资产类型",
     "Select_asset_pole": "选择资产极点",
+    "SelectView": "Please select a view",
     "widgetTitle": {
         "Dashboard_Widget_EnergyMixGroup_Title": "能源组合集团",
         "Dashboard_Widget_AnalogDataMonitoring_Title": "模拟数据监控",
@@ -184,7 +186,12 @@
         "Dashboard_Widget_UPSLatestAlarms_Title": "UPS最新警报",
         "Dashboard_Widget_UPSPeakMonitoring_Title": "UPS 峰值时间",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "能源构成趋势",
-        "Dashboard_Widget_EnergyCompositionOverview_Title": "能源构成概述"
+        "Dashboard_Widget_EnergyCompositionOverview_Title": "能源构成概述",
+        "Dashboard_Widget_Explore_Title": "站点 探索",
+        "Dashboard_Widget_PCSRealTimePower_Title": "PCS Real Time Power",
+        "Dashboard_Widget_PCSRealTimeCurrent_Title": "PCS Real Time Current",
+        "Dashboard_Widget_PCS_Logs_Title": "PCS Logs",
+        "Dashboard_Widget_PCSPeakMonitoring_Title": "PCS peak monitoring"
     },
     "widgetDropdownTitle": {
         "Total_facility_group": "总设备组",
@@ -223,7 +230,10 @@
         "Voltage_type": "电压类型",
         "Connection_status": "连接状态",
         "Mains": "电源",
-        "Generators": "发电机"
+        "Generators": "发电机",
+        "StartView": "Start View",
+        "Asset_Family": "Asset Family",
+        "Asset_Type": "Asset Type"
     },
     "allAssets": {
         "Explore_AllEquipment_Page_Title": "探索：所有设备",
@@ -241,6 +251,7 @@
         "Model": "模型",
         "monitoring_not_supported": "您无法启用对此资产的监控，因为它不受支持。",
         "Not_Monitored": "不受监控",
+        "Not_Maintenance_Available": "在“设置”页面输入缺少的信息以完成分析。",
         "Offline": "离线",
         "Error_occurred": "加载页面时发生错误",
         "No_Equipment": "没有工厂设备",
@@ -248,7 +259,8 @@
         "Device_events": "资产事件",
         "Connectivity_events": "通讯事件",
         "Custom_alerts": "自定义提醒",
-        "Health_warnings": "健康警告"
+        "Health_warnings": "健康警告",
+        "Asset_Family": "Asset Family"
     },
     "allAssetsOverview": {
         "Explore_AllEquipment_Detail_Overview_Widget_CircuitBreakerSummary_Title": "断路器摘要",
@@ -855,10 +867,10 @@
         "kWh": "kWh",
         "Waning": "警告",
         "Table_view_View_text": "视图",
-        "Table_view_Condition_text":"健康）状况",
-        "Table_view_Type_text":"类型",
-        "Table_view_Tags_text":"标签",
-        "Table_view_2DView_text":"2D 视图"
+        "Table_view_Condition_text": "健康）状况",
+        "Table_view_Type_text": "类型",
+        "Table_view_Tags_text": "标签",
+        "Table_view_2DView_text": "2D 视图"
     },
     "Connectivity": {
         "Explore:Connectivity": "探索：连接性"
@@ -1138,7 +1150,8 @@
         "Item": "资产",
         "code": "码",
         "source": "资源",
-        "recommended_actions": "建议措施"
+        "recommended_actions": "建议措施",
+        "ViewLink": "View link"
     },
     "chartoptions": {
         "Energy": "电能(kWh)",
@@ -1490,7 +1503,8 @@
         "Good_Tooltip": "状况良好或可用",
         "Poor_Tooltip": "恶化需要干预。 计划维护",
         "Very_Poor_Tooltip": "使用寿命终止，干预需要立即采取行动",
-        "Offline_Tooltip": "健康计算不可用或资产断开"
+        "Offline_Tooltip": "健康计算不可用或资产断开",
+        "InValidHealthIndexMessage": "Device is  unable to send required data for health analysis"
     },
     "contactSupportPage": {
         "abstract": "向我们发送信息请求",
@@ -1737,5 +1751,15 @@
         "Save_view": "保存视图",
         "Upload_new_image": "上传图片",
         "Download_image": "下载图片"
+    },
+    "PartialDischarge": {
+        "title": "Partial discharge",
+        "sensor": "SENSOR",
+        "pdPresence": "PD PRESENCE",
+        "pdStrength": "PD STRENGTH",
+        "pdPulse": "PD PULSE RATE",
+        "phase1": "Phase 1",
+        "phase2": "Phase 2",
+        "phase3": "Phase 3"
     }
 }

@@ -46,6 +46,7 @@
     "Footer_Menu_CyberSecurity": "Кибербезопасность",
     "Footer_Menu_OpenSourceSoftware": "Программное обеспечение с открытым исходным кодом",
     "Footer_Menu_ContactUs": "Связаться с нами",
+    "Footer_Special_Terms_and_Conditions": "Special Terms and Conditions",
     "Empty_Dashboard": "Панель приборов приборов пуста",
     "Empty_Dashboard_sub_title": "Добавьте виджеты из списка и расположите их так, как вам нравится",
     "widgetDelete": "Удалить",
@@ -109,6 +110,7 @@
     "Select_standard_reference": "Выберите стандартную ссылку",
     "Select_asset_type": "Выберите тип актива",
     "Select_asset_pole": "Выбрать полюс актива",
+    "SelectView": "Please select a view",
     "widgetTitle": {
         "Dashboard_Widget_EnergyMixGroup_Title": "Energy Mix Group",
         "Dashboard_Widget_AnalogDataMonitoring_Title": "Мониторинг аналоговых данных",
@@ -184,7 +186,12 @@
         "Dashboard_Widget_UPSLatestAlarms_Title": "Последние аварийные сигналы ИБП",
         "Dashboard_Widget_UPSPeakMonitoring_Title": "UPS Мониторинг пиков потребления мощности",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "Тенденция энергетического состава",
-        "Dashboard_Widget_EnergyCompositionOverview_Title": "Обзор энергетического состава"
+        "Dashboard_Widget_EnergyCompositionOverview_Title": "Обзор энергетического состава",
+        "Dashboard_Widget_Explore_Title": "сайт Проводить исследования",
+        "Dashboard_Widget_PCSRealTimePower_Title": "PCS Real Time Power",
+        "Dashboard_Widget_PCSRealTimeCurrent_Title": "PCS Real Time Current",
+        "Dashboard_Widget_PCS_Logs_Title": "PCS Logs",
+        "Dashboard_Widget_PCSPeakMonitoring_Title": "PCS peak monitoring"
     },
     "widgetDropdownTitle": {
         "Total_facility_group": "Общая группа объектов",
@@ -223,7 +230,10 @@
         "Voltage_type": "Тип напряжения",
         "Connection_status": "Статус подключения",
         "Mains": "Сеть",
-        "Generators": "Генераторы"
+        "Generators": "Генераторы",
+        "StartView": "Start View",
+        "Asset_Family": "Asset Family",
+        "Asset_Type": "Asset Type"
     },
     "allAssets": {
         "Explore_AllEquipment_Page_Title": "Исследуйте: все оборудование",
@@ -241,6 +251,7 @@
         "Model": "МОДЕЛЬ",
         "monitoring_not_supported": "Вы не можете включить мониторинг на этом устройстве, потому что он не поддерживается.",
         "Not_Monitored": "Не контролируется",
+        "Not_Maintenance_Available": "Введите недостающие данные на странице настроек для завершения анализа.",
         "Offline": "Не в сети",
         "Error_occurred": "Произошла ошибка при загрузке страницы",
         "No_Equipment": "Нет оборудования для завода",
@@ -248,7 +259,8 @@
         "Device_events": "События актива",
         "Connectivity_events": "События подключения",
         "Custom_alerts": "Пользовательские оповещения",
-        "Health_warnings": "Предупреждения о вреде для здоровья"
+        "Health_warnings": "Предупреждения о вреде для здоровья",
+        "Asset_Family": "Asset Family"
     },
     "allAssetsOverview": {
         "Explore_AllEquipment_Detail_Overview_Widget_CircuitBreakerSummary_Title": "Краткое описание выключателя",
@@ -854,10 +866,10 @@
         "kWh": "кВтч",
         "Waning": "Убывающая",
         "Table_view_View_text": "ПОСМОТРЕТЬ",
-        "Table_view_Condition_text":"СОСТОЯНИЕ",
-        "Table_view_Type_text":"ТИП",
-        "Table_view_Tags_text":"ТЕГИ",
-        "Table_view_2DView_text":"2D Посмотреть"
+        "Table_view_Condition_text": "СОСТОЯНИЕ",
+        "Table_view_Type_text": "ТИП",
+        "Table_view_Tags_text": "ТЕГИ",
+        "Table_view_2DView_text": "2D Посмотреть"
     },
     "Connectivity": {
         "Explore:Connectivity": "Исследуйте: Связь"
@@ -1135,7 +1147,8 @@
         "Item": "АКТИВ",
         "code": "КОД",
         "source": "ИСТОЧНИК",
-        "recommended_actions": "РЕКОМЕНДУЕМЫЕ ДЕЙСТВИЯ"
+        "recommended_actions": "РЕКОМЕНДУЕМЫЕ ДЕЙСТВИЯ",
+        "ViewLink": "View link"
     },
     "chartoptions": {
         "Energy": "Энергия (кВтч)",
@@ -1486,7 +1499,8 @@
         "Good_Tooltip": "Хорошее или исправное состояние",
         "Poor_Tooltip": "Ухудшение требует вмешательства. Планирование обслуживания",
         "Very_Poor_Tooltip": "Окончание срока службы, вмешательство требует немедленных действий",
-        "Offline_Tooltip": "Расчет состояния недоступен или объект отключен"
+        "Offline_Tooltip": "Расчет состояния недоступен или объект отключен",
+        "InValidHealthIndexMessage": "Device is  unable to send required data for health analysis"
     },
     "contactSupportPage": {
         "abstract": "Отправьте нам информационный запрос",
@@ -1733,5 +1747,15 @@
         "Save_view": "Сохранить вид",
         "Upload_new_image": "Загрузить новое изображение",
         "Download_image": "Скачать изображение"
+    },
+    "PartialDischarge": {
+        "title": "Partial discharge",
+        "sensor": "SENSOR",
+        "pdPresence": "PD PRESENCE",
+        "pdStrength": "PD STRENGTH",
+        "pdPulse": "PD PULSE RATE",
+        "phase1": "Phase 1",
+        "phase2": "Phase 2",
+        "phase3": "Phase 3"
     }
 }

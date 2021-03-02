@@ -46,6 +46,7 @@
     "Footer_Menu_CyberSecurity": "Cyber security",
     "Footer_Menu_OpenSourceSoftware": "Open Source Software",
     "Footer_Menu_ContactUs": "Contact us",
+    "Footer_Special_Terms_and_Conditions": "Special Terms and Conditions",
     "Empty_Dashboard": "The dashboard is empty",
     "Empty_Dashboard_sub_title": "Add widgets from the list and arrange them as you like",
     "widgetDelete": "Delete",
@@ -109,6 +110,7 @@
     "Select_asset_type": "Select asset type",
     "Select_asset_pole": "Select asset pole",
     "Search...": "Search...",
+    "SelectView": "Please select a view",
     "widgetTitle": {
         "Dashboard_Widget_EnergyMixGroup_Title": "Energy Mix Group",
         "Dashboard_Widget_AnalogDataMonitoring_Title": "Analog Data Monitoring",
@@ -184,7 +186,13 @@
         "Dashboard_Widget_UPSLatestAlarms_Title": "UPS Latest Alarms",
         "Dashboard_Widget_UPSPeakMonitoring_Title": "UPS Peak Monitoring",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "Energy Composition Trend",
-        "Dashboard_Widget_EnergyCompositionOverview_Title": "Energy Composition Overview"
+        "Dashboard_Widget_EnergyCompositionOverview_Title": "Energy Composition Overview",
+        "Dashboard_Widget_Explore_Title": "Site Explorer",
+        "Dashboard_Widget_PCSRealTimePower_Title": "PCS Real Time Power",
+        "Dashboard_Widget_PCS_Logs_Title": "PCS Logs",
+        "Dashboard_Widget_PCSRealTimeCurrent_Title": "PCS Real Time Current",
+        "Dashboard_Widget_PCSRealTimeVoltage_Title": "PCS Real Time Voltage",
+        "Dashboard_Widget_PCSPeakMonitoring_Title": "PCS peak monitoring"
     },
     "widgetDropdownTitle": {
         "Total_facility_group": "Total facility group",
@@ -223,7 +231,10 @@
         "Voltage_type": "Voltage type",
         "Connection_status": "Connection status",
         "Mains": "Mains",
-        "Generators": "Generators"
+        "Generators": "Generators",
+        "StartView": "Start View",
+        "Asset_Family": "Asset Family",
+        "Asset_Type": "Asset Type"
     },
     "allAssets": {
         "Explore_AllEquipment_Page_Title": "Explore: All equipment",
@@ -241,6 +252,7 @@
         "Model": "MODEL",
         "monitoring_not_supported": "You cannot enable monitoring on this asset because it's not supported.",
         "Not_Monitored": "Not Monitored",
+        "Not_Maintenance_Available": "Fill in missing info on Settings page to complete the analysis.",
         "Offline": "Offline",
         "Error_occurred": "Error occurred while loading the page",
         "No_Equipment": "No Equipment for the plant",
@@ -248,7 +260,8 @@
         "Device_events": "Asset events",
         "Connectivity_events": "Connectivity events",
         "Custom_alerts": "Custom alerts",
-        "Health_warnings": "Health warnings"
+        "Health_warnings": "Health warnings",
+        "Asset_Family": "Asset Family"
     },
     "allAssetsOverview": {
         "Explore_AllEquipment_Detail_Overview_Widget_CircuitBreakerSummary_Title": "Circuit Breaker Summary",
@@ -855,10 +868,10 @@
         "kWh": "kWh",
         "Waning": "Warning",
         "Table_view_View_text": "VIEW",
-        "Table_view_Condition_text":"Condition",
-        "Table_view_Type_text":"Type",
-        "Table_view_Tags_text":"TAGS",
-        "Table_view_2DView_text":"2D View"
+        "Table_view_Condition_text": "Condition",
+        "Table_view_Type_text": "Type",
+        "Table_view_Tags_text": "TAGS",
+        "Table_view_2DView_text": "2D View"
 
     },
     "Connectivity": {
@@ -1138,7 +1151,8 @@
         "Item": "ASSET",
         "code": "CODE",
         "source": "SOURCE",
-        "recommended_actions": "RECOMMENDED ACTIONS"
+        "recommended_actions": "RECOMMENDED ACTIONS",
+        "ViewLink": "View link"
     },
     "chartoptions": {
         "Energy": "ENERGY (kWh)",
@@ -1490,7 +1504,8 @@
         "Good_Tooltip": "Good or serviceable condition",
         "Poor_Tooltip": "Deterioration requires intervention. Plan maintenance",
         "Very_Poor_Tooltip": "End of serviceable life, intervention requires immediate action",
-        "Offline_Tooltip": "Unavailable health calculation or disconnected asset"
+        "Offline_Tooltip": "Unavailable health calculation or disconnected asset",
+        "InValidHealthIndexMessage": "Device is  unable to send required data for health analysis"
     },
     "contactSupportPage": {
         "abstract": "Send us an info request",
@@ -1737,5 +1752,15 @@
         "Save_view": "Save view",
         "Upload_new_image": "Upload new image",
         "Download_image": "Download image"
+    },
+    "PartialDischarge": {
+        "title": "Partial discharge",
+        "sensor": "SENSOR",
+        "pdPresence": "PD PRESENCE",
+        "pdStrength": "PD STRENGTH",
+        "pdPulse": "PD PULSE RATE",
+        "phase1": "Phase 1",
+        "phase2": "Phase 2",
+        "phase3": "Phase 3"
     }
 }

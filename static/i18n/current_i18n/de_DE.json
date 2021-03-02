@@ -44,6 +44,7 @@
     "Footer_Menu_CyberSecurity": "Onlinesicherheit",
     "Footer_Menu_OpenSourceSoftware": "Quelloffene Software",
     "Footer_Menu_ContactUs": "Kontaktiere uns",
+    "Footer_Special_Terms_and_Conditions": "Special Terms and Conditions",
     "Empty_Dashboard": "Das Instrumententafel ist leer",
     "Empty_Dashboard_sub_title": "Fügen Sie Widgets aus der Liste hinzu und ordnen Sie sie nach Ihren Wünschen an",
     "widgetDelete": "Löschen",
@@ -109,6 +110,7 @@
     "Select_standard_reference": "Standardreferenz auswählen",
     "Select_asset_type": "Asset-Typ auswählen",
     "Select_asset_pole": "Asset Pol auswählen",
+    "SelectView": "Please select a view",
     "widgetTitle": {
         "Dashboard_Widget_EnergyMixGroup_Title": "Energy Mix Group",
         "Dashboard_Widget_AnalogDataMonitoring_Title": "Analoge Datenüberwachung",
@@ -184,7 +186,12 @@
         "Dashboard_Widget_UPSLatestAlarms_Title": "UPS Neueste Alarme",
         "Dashboard_Widget_UPSPeakMonitoring_Title": "USV-Spitzenwertüberwachung",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "Trend der Energiezusammensetzung",
-        "Dashboard_Widget_EnergyCompositionOverview_Title": "Übersicht über die Energiezusammensetzung"
+        "Dashboard_Widget_EnergyCompositionOverview_Title": "Übersicht über die Energiezusammensetzung",
+        "Dashboard_Widget_Explore_Title": "Standort Erkunden",
+        "Dashboard_Widget_PCSRealTimePower_Title": "PCS Real Time Power",
+        "Dashboard_Widget_PCSRealTimeCurrent_Title": "PCS Real Time Current",
+        "Dashboard_Widget_PCSPeakMonitoring_Title": "PCS peak monitoring",
+        "Dashboard_Widget_PCS_Logs_Title": "PCS Logs"
 
     },
     "widgetDropdownTitle": {
@@ -224,7 +231,9 @@
         "Voltage_type": "Spannungsart",
         "Connection_status": "Verbindungsstatus",
         "Mains": "Netz",
-        "Generators": "Generatoren"
+        "Generators": "Generatoren",
+        "Asset_Family": "Asset Family",
+        "Asset_Type": "Asset Type"
     },
     "allAssets": {
         "Explore_AllEquipment_Page_Title": "Entdecken: Alle Geräte",
@@ -242,6 +251,7 @@
         "Model": "MODELL",
         "monitoring_not_supported": "Sie können die Überwachung für dieses Anlage nicht aktivieren, da es nicht unterstützt wird.",
         "Not_Monitored": "Nicht überwacht",
+        "Not_Maintenance_Available": "Geben Sie die fehlenden Informationen auf der Seite Einstellungen ein, um die Analyse abzuschließen.",
         "Offline": "Offline",
         "Error_occurred": "Beim Laden der Seite ist ein Fehler aufgetreten",
         "No_Equipment": "Keine Ausrüstung für die Anlage",
@@ -249,7 +259,9 @@
         "Device_events": "Anlagen-Ereignisse",
         "Connectivity_events": " Konnektivitäts-Ereignisse",
         "Custom_alerts": "Benutzerdefinierte Alarme",
-        "Health_warnings": "Gesundheitswarnungen"
+        "Health_warnings": "Gesundheitswarnungen",
+        "Asset_Family": "Asset Family",
+        "Asset_Type": "Asset Type"
     },
     "allAssetsOverview": {
         "Explore_AllEquipment_Detail_Overview_Widget_CircuitBreakerSummary_Title": "Zusammenfassung der Leistungsschalter",
@@ -856,10 +868,10 @@
         "kWh": "kWh",
         "Waning": "Abnehmend",
         "Table_view_View_text": "AUSSICHT",
-        "Table_view_Condition_text":"BEDINGUNG",
-        "Table_view_Type_text":"TYP",
-        "Table_view_Tags_text":"STICHWORTE",
-        "Table_view_2DView_text":"2D Aussicht"
+        "Table_view_Condition_text": "BEDINGUNG",
+        "Table_view_Type_text": "TYP",
+        "Table_view_Tags_text": "STICHWORTE",
+        "Table_view_2DView_text": "2D Aussicht"
     },
     "Connectivity": {
         "Explore:Connectivity": "Entdecken Sie: Konnektivität"
@@ -1138,7 +1150,8 @@
         "Item": "ANLAGEGUT",
         "code": "CODE",
         "source": "SOURCE",
-        "recommended_actions": "EMPFOHLENE AKTIONEN"
+        "recommended_actions": "EMPFOHLENE AKTIONEN",
+        "ViewLink": "View link"
     },
     "chartoptions": {
         "Energy": "Energie (kWh)",
@@ -1490,7 +1503,8 @@
         "Good_Tooltip": "Guter oder brauchbarer Zustand",
         "Poor_Tooltip": "Eine Verschlechterung erfordert ein Eingreifen. Planen Sie die Wartung",
         "Very_Poor_Tooltip": "Am Ende der Nutzungsdauer erfordert das Eingreifen sofortiges Handeln",
-        "Offline_Tooltip": "Nicht verfügbare Integritätsberechnung oder nicht verbundenes Asset"
+        "Offline_Tooltip": "Nicht verfügbare Integritätsberechnung oder nicht verbundenes Asset",
+        "InValidHealthIndexMessage": "Device is  unable to send required data for health analysis"
     },
     "contactSupportPage": {
         "abstract": "Senden Sie uns eine Info-Anfrage",
@@ -1739,5 +1753,15 @@
         "Save_view": "Ansicht speichern",
         "Upload_new_image": "Neues Bild hochladen",
         "Download_image": "Bild herunterladen"
+    },
+    "PartialDischarge": {
+        "title": "Partial discharge",
+        "sensor": "SENSOR",
+        "pdPresence": "PD PRESENCE",
+        "pdStrength": "PD STRENGTH",
+        "pdPulse": "PD PULSE RATE",
+        "phase1": "Phase 1",
+        "phase2": "Phase 2",
+        "phase3": "Phase 3"
     }
 }

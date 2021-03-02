@@ -45,6 +45,7 @@
     "Footer_Menu_CyberSecurity": "Bezpieczeństwo cybernetyczne",
     "Footer_Menu_OpenSourceSoftware": "Oprogramowanie Open Source",
     "Footer_Menu_ContactUs": "Skontaktuj się z nami",
+    "Footer_Special_Terms_and_Conditions": "Special Terms and Conditions",
     "Empty_Dashboard": "Pulpit jest pusty",
     "Empty_Dashboard_sub_title": "Dodaj widżety z listy i układaj je tak, jak chcesz",
     "widgetDelete": "Usuń",
@@ -109,6 +110,7 @@
     "Select_standard_reference": "Wybierz standardowe odniesienie",
     "Select_asset_type": "Wybierz typ zasobu",
     "Select_asset_pole": "Wybierz biegun zasobów",
+    "SelectView": "Please select a view",
     "widgetTitle": {
         "Dashboard_Widget_AnalogDataMonitoring_Title": "Monitorowanie danych analogowych",
         "Dashboard_Widget_ArcGuard_Title": "ArcGuard",
@@ -184,7 +186,12 @@
         "Dashboard_Widget_UPSMonitor_Title": "Monitor UPS",
         "Dashboard_Widget_UPSPeakMonitoring_Title": "UPS Monitorowanie szczytów",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "Trend składu energii",
-        "Dashboard_Widget_EnergyCompositionOverview_Title": "Przegląd składu energii"
+        "Dashboard_Widget_EnergyCompositionOverview_Title": "Przegląd składu energii",
+        "Dashboard_Widget_Explore_Title": "Obiekt Przeglądaj",
+        "Dashboard_Widget_PCSRealTimePower_Title": "PCS Real Time Power",
+        "Dashboard_Widget_PCS_Logs_Title": "PCS Logs",
+        "Dashboard_Widget_PCSRealTimeCurrent_Title": "PCS Real Time Current",
+        "Dashboard_Widget_PCSPeakMonitoring_Title": "PCS peak monitoring"
     },
     "widgetDropdownTitle": {
         "Total_facility_group": "Ogólna grupa obiektów",
@@ -223,7 +230,9 @@
         "Voltage_type": "Rodzaj napięcia",
         "Connection_status": "Status połączenia",
         "Mains": "Sieć elektryczna",
-        "Generators": "Generatory"
+        "Generators": "Generatory",
+        "StartView": "Start View",
+        "Asset_Family": "Asset Family"
     },
     "allAssets": {
         "Explore_AllEquipment_Page_Title": "Przeglądaj: cały sprzęt",
@@ -241,6 +250,7 @@
         "Model": "MODEL",
         "monitoring_not_supported": "Nie można włączyć monitorowania na tym urzązeniau, ponieważ nie jest ono obsługiwane.",
         "Not_Monitored": "Nie monitorowany",
+        "Not_Maintenance_Available": "Aby ukończyć analizę, wprowadź brakujące informacje na stronie Ustawienia.",
         "Offline": "Offline",
         "Error_occurred": "Wystąpił błąd podczas ładowania strony",
         "No_Equipment": "Brak urządzeń",
@@ -248,7 +258,8 @@
         "Device_events": "Zdarzenia dla zasobu",
         "Connectivity_events": "Zdarzenia związane z łącznością",
         "Custom_alerts": "Alarmy niestandardowe",
-        "Health_warnings": "Ostrzeżenia o stanie technicznym"
+        "Health_warnings": "Ostrzeżenia o stanie technicznym",
+        "Asset_Family": "Asset Family"
     },
     "allAssetsOverview": {
         "Explore_AllEquipment_Detail_Overview_Widget_CircuitBreakerSummary_Title": "Podsumowanie wyłącznika",
@@ -855,10 +866,10 @@
         "kWh": "kWh",
         "Waning": "Ostrzeżenie",
         "Table_view_View_text": "WIDOK",
-        "Table_view_Condition_text":"STAN: SCHORZENIE",
-        "Table_view_Type_text":"RODZAJ",
-        "Table_view_Tags_text":"TAGI",
-        "Table_view_2DView_text":"2D Widok"
+        "Table_view_Condition_text": "STAN: SCHORZENIE",
+        "Table_view_Type_text": "RODZAJ",
+        "Table_view_Tags_text": "TAGI",
+        "Table_view_2DView_text": "2D Widok"
     },
     "Connectivity": {
         "Explore:Connectivity": "Odkryj: łączność"
@@ -1137,7 +1148,8 @@
         "Item": "Grupy",
         "code": "KOD",
         "source": "ŹRÓDŁO",
-        "recommended_actions": "ZALECANE CZYNNOŚCI"
+        "recommended_actions": "ZALECANE CZYNNOŚCI",
+        "ViewLink": "View link"
     },
     "chartoptions": {
         "Energy": "Energia (kWh)",
@@ -1489,7 +1501,8 @@
         "Good_Tooltip": "Stan dobry lub sprawny",
         "Poor_Tooltip": "Pogorszenie stanu wymaga interwencji. Zaplanuj konserwację",
         "Very_Poor_Tooltip": "Koniec okresu użytkowania, interwencja wymaga natychmiastowego działania",
-        "Offline_Tooltip": "Niedostępne kalkulacja stanu technicznego lub zasób odłączony"
+        "Offline_Tooltip": "Niedostępne kalkulacja stanu technicznego lub zasób odłączony",
+        "InValidHealthIndexMessage": "Device is  unable to send required data for health analysis"
     },
     "contactSupportPage": {
         "abstract": "Wyślij nam prośbę o informacje",
@@ -1737,5 +1750,15 @@
         "Save_view": "Zapisz widok",
         "Upload_new_image": "Prześlij nowy obraz",
         "Download_image": "Pobierz obraz"
+    },
+    "PartialDischarge": {
+        "title": "Partial discharge",
+        "sensor": "SENSOR",
+        "pdPresence": "PD PRESENCE",
+        "pdStrength": "PD STRENGTH",
+        "pdPulse": "PD PULSE RATE",
+        "phase1": "Phase 1",
+        "phase2": "Phase 2",
+        "phase3": "Phase 3"
     }
 }

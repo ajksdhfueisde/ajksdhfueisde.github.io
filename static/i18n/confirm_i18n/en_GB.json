@@ -37,7 +37,7 @@
     "Header_MainMenu_Settings_Support": "Support",
     "Header_MainMenu_Settings_About": "About ABB Ability",
     "Header_MainMenu_Settings_ForMoreInformation": "For more information",
-    "Footer_Copyright": "Copyright 2019-2020 ABB. All rights reserved",
+    "Footer_Copyright": "Copyright 2020-2021 ABB. All rights reserved",
     "Footer_Menu_VisitOurWebSite": "Visit our Web Site",
     "Footer_Menu_ABBPrivacyPolicy": "ABB Privacy Policy",
     "Footer_Menu_ABBAbilityTermsAndConditions": "ABB Ability™ Terms and Conditions",
@@ -90,6 +90,7 @@
     "Add_a_new_alert_on_the_Alerts_page": "Add a new alert on the Alerts page",
     "No_reports_available": "No reports available",
     "Go_to_Asset_section": "Go to Asset section",
+    "Go_to_Events_section": "All alarms and events",
     "Select_period": "Select period...",
     "Select_asset": "Select asset...",
     "No_Results_Found": "No results found",
@@ -144,6 +145,7 @@
         "Dashboard_Widget_ServiceActivitiesOverview_Title": "Service Activities Overview",
         "Dashboard_Widget_RealTimeMetering_Title": "Real Time Metering",
         "Dashboard_Widget_PUEMonitor_Title": "PUE Monitor",
+        "Dashboard_Widget_UPSMonitor_Title": "UPS Monitor",
         "Dashboard_Widget_States_and_Events_Title": "States and Counters",
         "Dashboard_Widget_TotalHistoricEnergyData_Title": "Total Historic Energy Data",
         "Dashboard_Widget_ArcGuard_Title": "Arc Guard",
@@ -173,6 +175,14 @@
         "Overview_Widget_Mechanical_data_trend": "Mechanical data trend",
         "Overview_Widget_Breaker_operations": "Breaker operations",
         "Dashboard_Widget_GroupRealTimeMetering_Title": "Group Real Time Metering",
+        "Dashboard_Widget_Ups_battery_status": "UPS Battery Status",
+        "Dashboard_Widget_Ups_Alarm_status_Title": "UPS Status",
+        "Dashboard_Widget_UPS_Events_Title": "UPS Logs",
+        "Dashboard_Widget_UPSRealTimeVoltage_Title": "UPS Real Time Voltage",
+        "Dashboard_Widget_UPSRealTimeCurrent_Title": "UPS Real Time Currents",
+        "Dashboard_Widget_UPSRealTimePower_Title": "UPS Real Time Power",
+        "Dashboard_Widget_UPSLatestAlarms_Title": "UPS Latest Alarms",
+        "Dashboard_Widget_UPSPeakMonitoring_Title": "UPS Peak Monitoring",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "Energy Composition Trend",
         "Dashboard_Widget_EnergyCompositionOverview_Title": "Energy Composition Overview"
     },
@@ -191,6 +201,7 @@
         "Manufacturer": "Manufacturer",
         "Asset_class": "Asset class",
         "Type": "Type",
+        "Values": "Values",
         "Event_type": "Event type",
         "Device": "Asset",
         "Measure": "Measure",
@@ -272,6 +283,8 @@
         "Explore_AllEquipment_Detail_Information_AssetInformation_Title": "Asset information",
         "Explore_AllEquipment_Detail_Information_ElectronicDevice_Title": "Electronic asset",
         "Explore_AllEquipment_Detail_Information_LifeCycleData_Title": "Life cycle data",
+        "Explore_AllEquipment_Detail_Information_State_Title": "State",
+        "Explore_AllEquipment_Detail_Information_Log_Title": "Log",
         "CB_tag_name": "CB tag name",
         "Nominal_current": "Nominal current",
         "Nominal_voltage": "Nominal voltage",
@@ -531,7 +544,8 @@
         "assignErrormsg": "No user assigned",
         "descriptionLengthMsg": "Description length should be less than or equal to 1000 characters",
         "Acknowledge_date": "Acknowledge date",
-        "Acknowledge_Notes": "Acknowledge notes"
+        "Acknowledge_Notes": "Acknowledge notes",
+        "No_asset_on_plant": "Unable to create maintenance due to no asset on current plant"
     },
     "maintenance": {
         "New": "New"
@@ -785,7 +799,7 @@
         "Yearly": "Yearly"
     },
     "ReportsGroup": {
-        "Time_shedule": "Time shedule",
+        "Time_shedule": "Time schedule",
         "Daily": "Daily",
         "Weekly": "Weekly",
         "Monthly": "Monthly",
@@ -979,7 +993,6 @@
         "digitalInputsParameterName": "INPUT",
         "analogInputParameter": "INPUT",
         "tagName": "TAG NAME",
-        "parameter": "PARAMETER",
         "digitalOutput": "TAGNAME",
         "minValue": "RANGE",
         "measureUnit": "MEASURE UNIT",
@@ -1011,6 +1024,12 @@
         "u1N": "U1N (V)",
         "u2N": "U2N (V)",
         "u3N": "U3N (V)",
+        "outV12": "Out V12(V)",
+        "outV23": "Out V23(V)",
+        "outV31": "Out V31(V)",
+        "outV1": "Out V1N(V)",
+        "outV2": "Out V2N(V)",
+        "outV3": "Out V3N(V)",
         "p": "P (kW)",
         "q": "Q (kVAR)",
         "s": "S (kVA)",
@@ -1107,7 +1126,11 @@
         "CSU2": "CSU2",
         "OCTrip": "OC Trip",
         "OCWarning": "OC Warning",
-        "error": "ERROR"
+        "error": "ERROR",
+        "Item": "ASSET",
+        "code": "CODE",
+        "source": "SOURCE",
+        "recommended_actions": "RECOMMENDED ACTIONS"
     },
     "chartoptions": {
         "Energy": "ENERGY (kWh)",
@@ -1162,8 +1185,9 @@
         "Page": "Page"
     },
     "tableComponent": {
-        "Favourites": "Favourites",
-        "All": "All"
+        "Favourites": "Favorites",
+        "All": "All",
+        "Last_Events": "Last Events"
     },
     "tableTreeComponent": {
         "disable_asset": "Disable asset",
@@ -1510,7 +1534,7 @@
         "Profile_Form_Invalid_Image_Type": "Invalid image type",
         "Profile_File_Size_Message": "File size should less then 50KB",
         "Profile_Image_Size_Message": "Image size not valid. Height should be between 300 and 3000 pixel",
-        "Favourites_Limit_Message": "Favourites adding reached limit",
+        "Favourites_Limit_Message": "Favorites adding reached limit",
         "Maintenance_Delete_Message": "Maintenance data deleted successfully",
         "File_Delete_Message": "File deleted successfully",
         "Failed_Delete_Message": "Failed to delete document",
@@ -1600,6 +1624,14 @@
         "Acknowledge_Notes": "Acknowledge Event",
         "Notes_Text": "Notes"
     },
+    "UPSMonitor": {
+        "PHASE": "PHASE",
+        "VOLTAGE": "VOLTAGE",
+        "CURRENT": "CURRENT",
+        "LOAD": "LOAD",
+        "MEASURE": "MEASURE",
+        "CHART": "CHART"
+    },
     "assetDetailsSettings": {
         "digitalInput": "DigitalInput",
         "digitalOutput": "DigitalOutput",
@@ -1641,12 +1673,26 @@
         "incomingGroupErrorMsg": "Incoming item is required",
         "outgoingGroupErrorMsg": "Outgoing item is required"
     },
+    "upsRealTimePower": {
+        "P1": "P1 (kW)",
+        "P2": "P2 (kW)",
+        "P3": "P3 (kW)"
+    },
     "footer": {
         "Name": "Name",
         "License": "License",
         "Website": "Website",
         "LIST_OF_OSS_COMPONENTS_USED_IN_THIS_WEBSITE": "LIST OF OSS COMPONENTS USED IN THIS WEBSITE",
         "Visit_website": "Visit website"
+    },
+    "tableFavoriteMsg": {
+        "name": "Favorites",
+        "description": "Please add your favorite asset to shortlist"
+    },
+    "upsBatteryStatus": {
+        "item": "Item",
+        "batteryTemp": "UPS Temperature",
+        "batteryLevel": "Battery level"
     },
     "equipmentPageFilter": {
         "CONDITION_FILTER_ALARM": "Alarm",
@@ -1669,11 +1715,11 @@
         "FALSE": "False"
     },
     "filterDropdown": {
-        "CLEAR" : "Clear",
-        "NO_MATCH" : "No matching result to show",
-        "NO_WARNING" : "No Warning",
-        "WARNING" : "Warning",
-        "NONE" : "None"
+        "CLEAR": "Clear",
+        "NO_MATCH": "No matching result to show",
+        "NO_WARNING": "No Warning",
+        "WARNING": "Warning",
+        "NONE": "None"
     }
 
 }

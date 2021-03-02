@@ -1,5 +1,5 @@
 {
-    "Header_MainMenu_Dashboard": "Dashboard",
+    "Header_MainMenu_Dashboard": "Painel de controle",
     "Header_MainMenu_Explore": "Explorar",
     "Header_MainMenu_Explore_AllEquipment": "Todos os equipamentos",
     "Header_MainMenu_Explore_2D3DView": "Visualização 2D / 3D",
@@ -37,11 +37,11 @@
     "Header_MainMenu_Settings_Support": "Suporte",
     "Header_MainMenu_Settings_About": "Sobre a ABB Ability",
     "Header_MainMenu_Settings_ForMoreInformation": "Para maiores informações",
-    "Footer_Copyright": "© Direito autoral 2019-2020 ABB. Todos os direitos reservados",
+    "Footer_Copyright": "© Direito autoral 2020-2021 ABB. Todos os direitos reservados",
     "Footer_Menu_VisitOurWebSite": "Visite o nosso site",
     "Footer_Menu_ABBPrivacyPolicy": "ABB Política de Privacidade",
     "Footer_Menu_ABBAbilityTermsAndConditions": "ABB Ability™ Termos e Condições",
-    "Footer_Menu_TermsOfServices": "Termos de serviços",
+    "Footer_Menu_TermsOfServices": "Termos de uso",
     "Footer_Menu_AcceptableUsePolicy": "Política de Utilização Aceitável",
     "Footer_Menu_CyberSecurity": "Segurança cibernética",
     "Footer_Menu_OpenSourceSoftware": "Software de código aberto",
@@ -53,8 +53,8 @@
     "Dashboard_Widget_AssetList_Table_Column_Name": "NOME",
     "Dashboard_Widget_AssetList_Table_Column_Condition": "DOENÇA",
     "Dashboard_Widget_AssetList_Table_Column_Connection": "CONEXÃO",
-    "Dashboard_Widget_AssetList_Table_Column_HealthIndex": "Índice de Integridade (%)",
-    "Dashboard_Widget_AssetList_Selector_HealthIndex_Label": "Índice de Integridade",
+    "Dashboard_Widget_AssetList_Table_Column_HealthIndex": "ÍNDICE DE SAÚDE (%)",
+    "Dashboard_Widget_AssetList_Selector_HealthIndex_Label": "Índice De Saúde",
     "Dashboard_Widget_AssetList_equipments": "equipamentos",
     "Dashboard_Widget_AssetList_Connected": "Conectada",
     "Dashboard_Widget_AssetList_Disconnected": "Desconectado",
@@ -92,6 +92,7 @@
     "Select_period": "Selecionar período ...",
     "Select_asset": "Selecionar ativo ...",
     "Go_to_Asset_section": "Vá para a seção de ativos",
+    "Go_to_Events_section": "Todos os alarmes e eventos",
     "No_Results_Found": "Nenhum resultado encontrado",
     "pueTrendGroup_legend": "Grupo",
     "pueTrendCompareGroup_legend": "Grupo de comparação",
@@ -173,6 +174,15 @@
         "Overview_Widget_Operations": "Operações",
         "Overview_Widget_Remaining_life_trend": "Tendência de vida restante",
         "Overview_Widget_Temperature_data_trend": "Tendência de dados de temperatura",
+        "Dashboard_Widget_Ups_Alarm_status_Title": "Status UPS",
+        "Dashboard_Widget_Ups_battery_status": "Status da bateria do UPS",
+        "Dashboard_Widget_UPS_Events_Title": "Logs UPS",
+        "Dashboard_Widget_UPSRealTimeVoltage_Title": "Tensão do UPS em Tempo Real",
+        "Dashboard_Widget_UPSRealTimeCurrent_Title": "Correntes do UPS em Tempo Real",
+        "Dashboard_Widget_UPSRealTimePower_Title": "UPS Real Time Power",
+        "Dashboard_Widget_UPSLatestAlarms_Title": "Últimos alarmes UPS",
+        "Dashboard_Widget_UPSPeakMonitoring_Title": "Monitoramento de Picos do UPS",
+        "Dashboard_Widget_UPSMonitor_Title": "Monitor UPS",
         "Dashboard_Widget_EnergyCompositionTrend_Title": "Tendência de composição de energia",
         "Dashboard_Widget_EnergyCompositionOverview_Title": "Visão geral da composição de energia"
     },
@@ -191,6 +201,7 @@
         "Manufacturer": "Fabricante",
         "Asset_class": "Classe de ativos",
         "Type": "Tipo",
+        "Values": "Valores",
         "Event_type": "Tipo de evento",
         "Device": "De ativos",
         "Measure": "A medida",
@@ -272,6 +283,8 @@
         "Explore_AllEquipment_Detail_Information_AssetInformation_Title": "Informações do ativo",
         "Explore_AllEquipment_Detail_Information_ElectronicDevice_Title": "Dispositivo eletrônico",
         "Explore_AllEquipment_Detail_Information_LifeCycleData_Title": "Dados do ciclo de vida",
+        "Explore_AllEquipment_Detail_Information_State_Title": "Estado",
+        "Explore_AllEquipment_Detail_Information_Log_Title": "Log",
         "CB_tag_name": "Nome da marca CB",
         "Nominal_current": "Corrente nominal",
         "Nominal_voltage": "Voltagem nominal",
@@ -531,7 +544,8 @@
         "assignErrormsg": " Nenhum usuário atribuído ",
         "descriptionLengthMsg": "O comprimento da descrição deve ser menor ou igual a 1000 caracteres",
         "Acknowledge_date": "Data de reconhecimento",
-        "Acknowledge_Notes": "Notas de reconhecimento"
+        "Acknowledge_Notes": "Notas de reconhecimento",
+        "No_asset_on_plant": "Unable to create maintenance due to no asset on current plant"
     },
     "maintenance": {
         "New": "Nova"
@@ -616,6 +630,7 @@
         "Corrosion": "Corrosão",
         "Dust_level": "Nível de poeira",
         "Humidity": "Umidade",
+        "Salt": "Sal",
         "Shore_line_distance": "Distância da linha de costa (nível de sal)",
         "Average_yearly_T": "Média anual T",
         "Default_Preset_Name": "DEFAULT PRESET"
@@ -888,6 +903,12 @@
         "Error_msg_name": "Esse recurso é apenas para EDCS"
     },
     "listTable": {
+        "outV12": "Out V12(V)",
+        "outV23": "Out V23(V)",
+        "outV31": "Out V31(V)",
+        "outV1": "Out V1N(V)",
+        "outV2": "Out V2N(V)",
+        "outV3": "Out V3N(V)",
         "acknowledge": "RECONHECER",
         "Acknowledge": "Reconhecer",
         "Acknowledge_Selected": "Reconhecer selecionado",
@@ -1107,7 +1128,11 @@
         "CSU2": "CSU2",
         "OCTrip": "Viagem OC",
         "OCWarning": "Aviso OC",
-        "error": "ERRO"
+        "error": "ERRO",
+        "Item": "DE ATIVOS",
+        "code": "CÓDIGO",
+        "source": "SOURCE",
+        "recommended_actions": "AÇÕES RECOMENDADAS"
     },
     "chartoptions": {
         "Energy": "Energia (kWh)",
@@ -1163,7 +1188,8 @@
     },
     "tableComponent": {
         "All": "Tudo",
-        "Favourites": "Favoritos"
+        "Favourites": "Favoritos",
+        "Last_Events": "Últimos eventos"
     },
     "tableTreeComponent": {
         "disable_asset": "Desativar ativo",
@@ -1600,6 +1626,14 @@
         "Acknowledge_Notes": "Reconhecer Evento",
         "Notes_Text": "Notas"
     },
+    "UPSMonitor": {
+        "PHASE": "FASE",
+        "VOLTAGE": "VOLTAGEM",
+        "CURRENT": "ATUAL",
+        "LOAD": "CARGA",
+        "MEASURE": "A MEDIDA",
+        "CHART": "GRÁFICO"
+    },
     "assetDetailsSettings": {
         "digitalInput": "Entrada digital",
         "digitalOutput": "Saída digital",
@@ -1615,6 +1649,7 @@
         "cbFamilyError": "Família de ativos necessária",
         "cbVersionError": "Versão do ativo necessária"
     },
+
     "ServiceContract": {
         "technicianNameEmptyErrorMsg": "O comprimento do nome deve ter no máximo 50 caracteres",
         "technicianSurnameEmptyErrorMsg": "O comprimento do sobrenome deve ter no máximo 50 caracteres",
@@ -1622,6 +1657,7 @@
         "technicianEmailEmptyErrorMsg": "Email inválido",
         "technicianPhoneEmptyErrorMsg": "Telefone inválido. Formato: [+] [código do país] [número]"
     },
+
     "EnvironmentEditData": {
         "presetIdErrorMsg": "A predefinição é necessária",
         "averageYearlyTemperatureErrorMsg": "Temperatura média anual necessária",
@@ -1641,12 +1677,26 @@
         "incomingGroupErrorMsg": "Item recebido é obrigatório",
         "outgoingGroupErrorMsg": "O item de saída é obrigatório"
     },
+    "upsRealTimePower": {
+        "P1": "P1 (kW)",
+        "P2": "P2 (kW)",
+        "P3": "P3 (kW)"
+    },
     "footer": {
         "Name": "Nome",
         "License": "Licença",
         "Website": "Local na rede Internet",
         "LIST_OF_OSS_COMPONENTS_USED_IN_THIS_WEBSITE": "LISTA DE COMPONENTES OSS USADOS NESTE WEBSITE",
         "Visit_website": "Visite o site"
+    },
+    "tableFavoriteMsg": {
+        "name": "Favoritos",
+        "description": "Por favor, adicione o seu dispositivo favorito à lista de pré-seleção"
+    },
+    "upsBatteryStatus": {
+        "item": "GRUPOS",
+        "batteryTemp": "Temperatura UPS",
+        "batteryLevel": "Nível de bateria"
     },
     "equipmentPageFilter": {
         "CONDITION_FILTER_ALARM": "Alarme",
@@ -1669,10 +1719,10 @@
         "FALSE": "False"
     },
     "filterDropdown": {
-        "CLEAR" : "Clara",
-        "NO_MATCH" : "Nenhum resultado correspondente para mostrar",
-        "NO_WARNING" : "Nenhum aviso",
-        "WARNING" : "Atenção",
-        "NONE" : "Nenhum"
+        "CLEAR": "Clara",
+        "NO_MATCH": "Nenhum resultado correspondente para mostrar",
+        "NO_WARNING": "Nenhum aviso",
+        "WARNING": "Atenção",
+        "NONE": "Nenhum"
     }
 }
