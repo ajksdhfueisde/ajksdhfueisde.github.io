@@ -36,7 +36,7 @@ interface IValueProps {
     isEmpty?: boolean;
 }
 
-interface ILanguageObject<T = string> {
+export interface ILanguageObject<T = string> {
     de_DE: T;
     en_GB: T;
     en_US: T;

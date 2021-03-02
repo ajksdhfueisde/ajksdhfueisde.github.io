@@ -5,7 +5,16 @@ import {Location} from "history";
 import {ProductAJAXWebService} from "service/ProductAJAXWebService";
 import {LanguageCode, GoogleTranslateResponse} from "./type";
 import {message} from "antd";
-import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, LanguageType, IFlatLanguageList} from "utils/constant";
+import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, LanguageType, IFlatLanguageList, ILanguageObject} from "utils/constant";
+import {murmurHash3_32_gc} from "utils/util";
+
+function numberFormat(num: number) {
+    return num < 10 ? `0${num}` : num;
+}
+
+const languageTypeHashMapping: Partial<ILanguageObject<number>> = {};
+const currentDate = new Date();
+const DATE_STRING = `${currentDate.getFullYear()}${numberFormat(currentDate.getMonth() + 1)}${numberFormat(currentDate.getDate())}`;
 
 const splitMarker = "-->";
 export interface HomeState {
@@ -135,15 +144,17 @@ class HomeModule extends Module<RootState, "home"> {
                     isEmpty: !item.value,
                 };
             } else {
-                mergeLanguageList[item.key] = {[name]: {
-                    value: item.value,
-                    original: item.value,
-                    confirm: "",
-                    isEdited: false,
-                    isConfirmChanged: false,
-                    // isNewKey: false,
-                    isEmpty: !item.value,
-                }};
+                mergeLanguageList[item.key] = {
+                    [name]: {
+                        value: item.value,
+                        original: item.value,
+                        confirm: "",
+                        isEdited: false,
+                        isConfirmChanged: false,
+                        // isNewKey: false,
+                        isEmpty: !item.value,
+                    },
+                };
             }
         });
         return {mergeLanguageList: {...mergeLanguageList}, columns: columns.concat([name])};
@@ -182,12 +193,28 @@ class HomeModule extends Module<RootState, "home"> {
     }
 
     *fetchJSON(url: string) {
-        const response = yield* call(() => this._importFile(url));
+        const response = yield* call(() => this._importFile(url + `?tag=${Math.random()}`));
         return response;
     }
 
     *changeModalVisible(isShow: boolean) {
         this.setState({selectModalVisible: isShow});
+    }
+
+    *cacheEditData(column: LanguageType, key: string, value?: string) {
+        const hashNumber = languageTypeHashMapping[column];
+        const localStorageKey = `${column}-${hashNumber}`;
+        let currentAllCache = {} as any;
+        try {
+            currentAllCache = JSON.parse(localStorage.getItem(localStorageKey) || "") || ({} as any);
+        } catch (err) {}
+        const currentDateCache = currentAllCache[DATE_STRING] || ({} as any);
+        currentDateCache[key] = value || "";
+        const newData = {
+            ...currentAllCache,
+            [DATE_STRING]: currentDateCache,
+        };
+        localStorage.setItem(localStorageKey, JSON.stringify(newData));
     }
 
     *onLanguageSelectChange(keys: LanguageType[]) {
@@ -198,9 +225,7 @@ class HomeModule extends Module<RootState, "home"> {
             }
             const response = yield* call(() => this.fetchJSON(CURRENT_LANGUAGE_KEY_URL[keys[i]]));
             const {mergeLanguageList, columns} = this.dealWithJSON(response, keys[i]);
-            // if (confirmObj[keys[i]]) {
-            //     this.setState({mergeLanguageList, columns});
-            // } else {
+            languageTypeHashMapping[keys[i]] = murmurHash3_32_gc(JSON.stringify(response));
             const confirmResponse = yield* call(() => this.fetchJSON(CONFIRM_LANGUAGE_KEY_URL[keys[i]]));
             const flatConfirmObj = abstractKeys(confirmResponse);
             flatConfirmObj.forEach(item => {
@@ -214,7 +239,7 @@ class HomeModule extends Module<RootState, "home"> {
                         obj.isConfirmChanged = true;
                     }
                 }
-            })
+            });
             this.setState({mergeLanguageList, columns});
             // }
         }

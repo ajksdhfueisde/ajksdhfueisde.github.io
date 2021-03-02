@@ -17,6 +17,7 @@ interface Props {
     hasImported: boolean;
     openLanguageModal: () => void;
     exportJSON: (columnName?: LanguageType) => void;
+    cacheEditData: (column: LanguageType, key: string, value?: string) => void;
 }
 
 interface DataProps {
@@ -24,7 +25,7 @@ interface DataProps {
     data: IFlatLanguageListItem;
 }
 
-const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, openLanguageModal, exportJSON}) => {
+const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, openLanguageModal, exportJSON, cacheEditData}) => {
     const [editLanguageList, setEditLanguageList] = useState<IFlatLanguageList>({});
     const [isEmptyFilter, setIsEmptyFilter] = useState<boolean>(true);
     const [isNewFilter, setIsNewFilter] = useState<boolean>(true);
@@ -103,6 +104,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                 },
             },
         });
+        cacheEditData(column, title, value);
     };
     columns.forEach(column => {
         tableColumns.push({
@@ -266,6 +268,7 @@ const mapStatsToProps = (state: RootState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     openLanguageModal: () => dispatch(actions.changeModalVisible(true)),
     exportJSON: (columnName?: LanguageType) => dispatch(actions.exportJSON(columnName)),
+    cacheEditData: (column: LanguageType, key: string, value?: string) => dispatch(actions.cacheEditData(column, key, value))
 });
 
 export default connect(mapStatsToProps, mapDispatchToProps)(Welcome);
