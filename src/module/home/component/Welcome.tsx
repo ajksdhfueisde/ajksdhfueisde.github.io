@@ -1,4 +1,4 @@
-import {Button, Col, Row, Table, Tooltip, Typography, Checkbox, Modal} from "antd";
+import {Button, Avatar, Col, Row, Table, Tooltip, Typography, Checkbox, Modal} from "antd";
 import {CloseOutlined} from "@ant-design/icons";
 import {ColumnProps} from "antd/lib/table";
 import React, {useState, useEffect} from "react";
@@ -34,7 +34,6 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
             setEditLanguageList({...mergeLanguageList});
         }
     }, [mergeLanguageList]);
-    // const editLanguageList = mergeLanguageList;
     let dataSource: DataProps[] = Object.keys(editLanguageList).map(key => ({title: key, data: editLanguageList[key]}));
     if (isEmptyFilter || isConfirmChangeFilter || isNewFilter) {
         dataSource = dataSource.filter(item => {
@@ -44,18 +43,6 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
             return isEmpty || isConfirmChanged || isNew;
         });
     }
-    // if (isConfirmChangeFilter) {
-    //     dataSource = dataSource.filter(item => {
-    //         const isConfirmChanged = columns.some(column => item.data[column]?.isConfirmChanged);
-    //         return isConfirmChanged;
-    //     });
-    // }
-    // if (isNewFilter) {
-    //     dataSource = dataSource.filter(item => {
-    //         const isNew = columns.some(column => !item.data[column]?.confirm);
-    //         return isNew;
-    //     });
-    // }
     const tableColumns: Array<ColumnProps<any>> = [
         {
             title: "No",
@@ -73,9 +60,30 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
             width: `${90 / (columns.length + 1)}vw`,
             ellipsis: true,
             render: (value, record: DataProps) => {
+                const isEmpty = isEmptyFilter && columns.some(column => record.data[column]?.isEmpty);
+                const isConfirmChanged = isConfirmChangeFilter && columns.some(column => record.data[column]?.isConfirmChanged);
+                const isNew = isNewFilter && columns.some(column => !record.data[column]?.confirm);
                 return (
                     <Tooltip placement="topLeft" title={value}>
-                        <span>{value}</span>
+                        <Row>
+                            <Col>
+                                {isConfirmChanged && (
+                                    <Avatar size={18} style={{background: "red"}}>
+                                        C&nbsp;
+                                    </Avatar>
+                                )}
+                            </Col>
+                            <Col>
+                                {isNew && (
+                                    <Avatar size={18} style={{background: "green"}}>
+                                        N&nbsp;
+                                    </Avatar>
+                                )}
+                            </Col>
+                            <Col>
+                                <span>{value}</span>
+                            </Col>
+                        </Row>
                     </Tooltip>
                 );
             },
@@ -91,7 +99,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                     value,
                     isEdited: value !== editLanguageList[title][column]?.original,
                     isEmpty: !value.trim(),
-                    isConfirmChanged: value !== editLanguageList[title][column]?.confirm,
+                    isConfirmChanged: editLanguageList[title][column]?.confirm && value !== editLanguageList[title][column]?.confirm,
                 },
             },
         });
@@ -118,7 +126,16 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                 const isNew = !record.data[column]?.confirm;
                 const isEdited = record.data[column]?.isEdited;
                 return (
-                    <Tooltip placement="topLeft" title={value}>
+                    <Tooltip
+                        placement="topLeft"
+                        title={
+                            <div>
+                                {isConfirmChanged && <div className="red">Last Confirmed: {record.data[column]?.confirm}</div>}
+                                {isEdited && <div className="greenyellow">Original Value: {record.data[column]?.original}</div>}
+                                <div>Current Value: {value}</div>
+                            </div>
+                        }
+                    >
                         {isEmpty && (
                             <Typography.Text
                                 editable={{
@@ -188,12 +205,18 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                         </Col>
                         <Col>
                             <Checkbox checked={isConfirmChangeFilter} onChange={(e: CheckboxChangeEvent) => setIsConfirmChangeFilter(e.target.checked)}>
-                                Confirm change Filter
+                                <Avatar size={18} style={{background: "red"}}>
+                                    C
+                                </Avatar>
+                                &nbsp; Confirm change Filter
                             </Checkbox>
                         </Col>
                         <Col>
                             <Checkbox checked={isNewFilter} onChange={(e: CheckboxChangeEvent) => setIsNewFilter(e.target.checked)}>
-                                New Key Filter
+                                <Avatar size={18} style={{background: "green"}}>
+                                    N
+                                </Avatar>
+                                &nbsp; New Key Filter
                             </Checkbox>
                         </Col>
                     </Row>
@@ -201,34 +224,19 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                 <Col>
                     <Row gutter={20} style={{padding: "0 20px"}}>
                         <Col>
-                            {/* <Upload
-                                action=""
-                                accept=".json"
-                                showUploadList={false}
-                                beforeUpload={file => {
-                                    if (file) {
-                                        Modal.confirm({
-                                            content: "Import new json will reset existed!",
-                                            onOk() {
-                                                importJSON(file);
-                                            },
-                                            onCancel() {
-                                                return false;
-                                            },
-                                        });
-                                    }
-                                    return false;
-                                }}
-                            > */}
                             <Button type="primary" onClick={() => openLanguageModal()}>
                                 Import
                             </Button>
-                            {/* </Upload> */}
                         </Col>
                         <Col>
-                            <Button disabled={!hasImported} type="primary" danger onClick={() => {
-                                columns.forEach(column => exportJSON(column));
-                            }}>
+                            <Button
+                                disabled={!hasImported}
+                                type="primary"
+                                danger
+                                onClick={() => {
+                                    columns.forEach(column => exportJSON(column));
+                                }}
+                            >
                                 Export
                             </Button>
                         </Col>

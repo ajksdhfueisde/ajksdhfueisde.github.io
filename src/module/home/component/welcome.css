@@ -4,6 +4,9 @@
 
 .close-btn {
   display: none;
+  height: 20px !important;
+  width: 20px !important;
+  min-width: 20px !important;
 }
 
 .cell-edit {
@@ -23,3 +26,10 @@
   display: block;
 }
 
+.red {
+  color: red;
+}
+
+.greenyellow {
+  color: greenyellow;
+}

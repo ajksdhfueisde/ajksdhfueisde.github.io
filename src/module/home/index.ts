@@ -7,6 +7,7 @@ import {LanguageCode, GoogleTranslateResponse} from "./type";
 import {message} from "antd";
 import {CURRENT_LANGUAGE_KEY_URL, CONFIRM_LANGUAGE_KEY_URL, LanguageType, IFlatLanguageList} from "utils/constant";
 
+const splitMarker = "-->";
 export interface HomeState {
     mergeLanguageList: IFlatLanguageList;
     columns: LanguageType[];
@@ -22,7 +23,6 @@ const homeInitState: HomeState = {
 };
 
 function abstractKeys(obj: Object) {
-    const splitMarker = "####";
     const ALL_KEYS: Array<{key: string; value: string}> = [];
 
     function loop(subObj: Object, preKey = "") {
@@ -50,7 +50,6 @@ function abstractKeys(obj: Object) {
 }
 
 function restoreByKeys(ALL_KEYS: Array<{key: string; value: string}>) {
-    const splitMarker = "####";
     let obj = {};
     function detectObj(obj: any, props: string[], value: string): any {
         if (!props.length) {
