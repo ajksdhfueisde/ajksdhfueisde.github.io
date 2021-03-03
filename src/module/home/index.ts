@@ -108,8 +108,8 @@ class HomeModule extends Module<RootState, "home"> {
         console.log("translate", response);
     }
 
-    *exportJSON(colName: LanguageType = this.state.columns[0]): SagaIterator {
-        const {mergeLanguageList, columns} = this.state;
+    *exportJSON(colName: LanguageType = this.state.columns[0], mergeLanguageList = this.state.mergeLanguageList): SagaIterator {
+        const {columns} = this.state;
         if (!columns.includes(colName)) {
             message.error("Export name should import already");
             return;

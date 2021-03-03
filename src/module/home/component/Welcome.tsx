@@ -16,7 +16,7 @@ interface Props {
     columns: LanguageType[];
     hasImported: boolean;
     openLanguageModal: () => void;
-    exportJSON: (columnName?: LanguageType) => void;
+    exportJSON: (columnName?: LanguageType, languageList?: IFlatLanguageList) => void;
     cacheEditData: (column: LanguageType, key: string, value?: string) => void;
 }
 
@@ -226,7 +226,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                 <Col>
                     <Row gutter={20} style={{padding: "0 20px"}}>
                         <Col>
-                            <Button type="primary" onClick={() => openLanguageModal()}>
+                            <Button disabled={columns.length > 0} type="primary" onClick={() => openLanguageModal()}>
                                 Import
                             </Button>
                         </Col>
@@ -236,7 +236,7 @@ const Welcome: React.FC<Props> = ({hasImported, mergeLanguageList, columns, open
                                 type="primary"
                                 danger
                                 onClick={() => {
-                                    columns.forEach(column => exportJSON(column));
+                                    columns.forEach(column => exportJSON(column, editLanguageList));
                                 }}
                             >
                                 Export
@@ -267,8 +267,8 @@ const mapStatsToProps = (state: RootState) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     openLanguageModal: () => dispatch(actions.changeModalVisible(true)),
-    exportJSON: (columnName?: LanguageType) => dispatch(actions.exportJSON(columnName)),
-    cacheEditData: (column: LanguageType, key: string, value?: string) => dispatch(actions.cacheEditData(column, key, value))
+    exportJSON: (columnName?: LanguageType, languageList?: IFlatLanguageList) => dispatch(actions.exportJSON(columnName, languageList)),
+    cacheEditData: (column: LanguageType, key: string, value?: string) => dispatch(actions.cacheEditData(column, key, value)),
 });
 
 export default connect(mapStatsToProps, mapDispatchToProps)(Welcome);
